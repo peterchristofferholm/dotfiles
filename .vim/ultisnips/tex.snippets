@@ -1,0 +1,132 @@
+global !p
+def math():
+  return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+endglobal
+
+## math
+
+context "math()"
+snippet ff "This \frac{}{} snippet expands only a LaTeX math context"
+\frac{$1}{$2}$0
+endsnippet
+
+context "math()"
+snippet ss "insert curly braces for set notation in math mode"
+\\\{$1\\\}$0
+endsnippet
+
+context "math()"
+snippet mfr "mathfrak" iA
+\mathfrak{$1}$0
+endsnippet
+
+snippet mbf "The \mathbf{} command for bold text in math" iA
+\mathbf{$1}$0
+endsnippet
+
+snippet mrm "The \mathrm{} command for bold text in math" iA
+\mathrm{$1}$0
+endsnippet
+
+context "math()" 
+snippet mc "" 
+\mathcal{$1} $0
+endsnippet
+
+context "math()"
+snippet '([A-Za-z])(\d)' "auto subscript" wrA
+`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
+endsnippet
+
+context "math()"
+snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
+endsnippet
+
+context "math()"
+snippet td "superscript" iA
+^{$1}$0
+endsnippet
+
+context "math()"
+snippet tc "subscript" iA
+_{$1}$0
+endsnippet
+
+## fonts
+
+# monospaced 
+snippet tt "The \texttt{} command for typewriter-style font"
+\texttt{$1} $0
+endsnippet
+
+# italicized text
+snippet ti "The \textit{} command for italic-style font"
+\textit{$1} $0
+endsnippet
+
+# bold text 
+snippet bf "The \textbf{} command for bold text"
+\textbf{$1} $0
+endsnippet
+
+## misc
+
+# Snippet for inserting named links with href
+snippet hr "The hyperref package's \href{}{} command (for url links)"
+\href{${1:url}}{${2:display name}}$0
+endsnippet
+
+# Snippet for creating new generic LaTeX environments
+snippet env "New LaTeX environment" b
+\begin{$1}
+    $2
+\end{$1}
+$0
+endsnippet
+
+snippet eq "equation" b
+\begin{equation}
+    $2
+\end{equation}
+$0
+endsnippet
+
+
+# Snippet for inline math
+snippet mm "Insert inline math \(\)"
+\($1\)$0
+endsnippet
+
+snippet sec "insert section"
+\section{$1}
+$0
+endsnippet
+
+snippet sub "insert section"
+\subsection{$1}
+$0
+endsnippet
+
+snippet ac "insert acronym"
+\ac{$1}$0
+endsnippet
+
+snippet enq "insert enquote"
+\enquote{$1}$0
+endsnippet
+
+snippet nu "insert num"
+\num{$1}$0
+endsnippet
+
+snippet si "insert si number"
+\si{$1}{$2}$0
+endsnippet
+
+snippet ci "insert citation"
+\autocite{$1}$0
+endsnippet
+
+###
+
