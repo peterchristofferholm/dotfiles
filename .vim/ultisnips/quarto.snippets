@@ -1,6 +1,36 @@
 snippet cc "code chunk" b
+\`\`\`\{$1\}
+$2
+\`\`\`
+$0
+endsnippet
+
+snippet ccr "r code chunk" b
 \`\`\`\{r\}
 $1
 \`\`\`
+$0
+endsnippet
+
+snippet :: "element" i
+::: {$1}
+$2
+:::
+$0
+endsnippet
+
+
+snippet mc "multicols" i
+
+:::: {layout="[$1]"}
+::: {$2}
+$4
+:::
+
+::: {$3}
+$5
+:::
+::::
+
 $0
 endsnippet
