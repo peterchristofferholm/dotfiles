@@ -26,7 +26,14 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-# set PATH so it includes user's private bin if it exists
 if [ -d "/home/phol/.gem/bin" ] ; then
     PATH="/home/phol/.gem/bin:$PATH"
+fi
+
+if [ -d "/home/phol/.local/bin" ] ; then
+    PATH="/home/phol/.local/bin:$PATH"
+fi
+
+if [ -d "/home/phol/.cargo/bin" ] ; then
+    PATH="/home/phol/.cargo/bin:$PATH"
 fi
