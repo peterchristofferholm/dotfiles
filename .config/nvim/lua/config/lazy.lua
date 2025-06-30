@@ -20,8 +20,17 @@ require("config.options")
 
 -- setup lazy.nvim
 require("lazy").setup({
-    change_detection = { notify = false },
-    spec = {{ import = "plugins" }},
-    checker = { enabled = true },
-    install = { colorscheme = { "tokyonight-moon" }}
+    spec = {
+        { import = "plugins" }
+    },
+    change_detection = {
+        enabled = false,
+        notify = false,
+    },
+    checker = {
+        enabled = false,
+    },
+    install = {
+        colorscheme = { "tokyonight-moon" }
+    }
 })
