@@ -11,14 +11,14 @@ local mason_opts = {
 
 local ensure_installed = {
     "pyright",
+    "ruff",
+    "ruff_lsp",
     "marksman",
     "bashls",
-    "ruff",
     "lua_ls",
 }
 
 local config = function()
-
     local cmp_lsp = require("cmp_nvim_lsp")
     local capabilities = vim.tbl_deep_extend(
         "force",
@@ -26,6 +26,7 @@ local config = function()
         vim.lsp.protocol.make_client_capabilities(),
         cmp_lsp.default_capabilities()
     )
+    capabilities.offset_encoding = "utf-8"
 
 
     -- install LSP-servers and tooling
@@ -83,31 +84,29 @@ local config = function()
         group = vim.api.nvim_create_augroup("config-lsp-attach", { clear = true }),
         desc = "Lsp Actions",
         callback = function(event)
-            local map = function (keys, func, desc, mode)
+            local map = function(keys, func, desc, mode)
                 mode = mode or "n"
-                vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc})
+                vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
             end
 
+            local builtin = require("telescope.builtin")
+
             map("K", vim.lsp.buf.hover, "Hover")
-            map("<F2>", vim.lsp.buf.rename, "Rename")
 
-            map("<F6>", require("telescope.builtin").lsp_references, "find references")
-            map("gd", require("telescope.builtin").lsp_definitions, "[g]oto [d]efinition")
-
-            map("gD", vim.lsp.buf.declaration, "[g]oto [D]eclaration")
+            map("gR", builtin.lsp_references, "find [R]eferences")
+            map("gd", builtin.lsp_definitions, "[g]oto [d]efinition")
+            map("gD", builtin.lsp_type_definitions, "[g]oto type [D]definition")
 
             -- Execute a code action, usually your cursor needs to be on top of an error
             -- or a suggestion from your LSP for this to activate.
-            -- map("gra", vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
-            --
+            map("ga", vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+
+            -- map("gr", vim.lsp.buf.rename, "[r]ename ")
+
             -- Fuzzy find all the symbols in your current workspace.
             --  Similar to document symbols, except searches over your entire project.
             -- map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
 
-            -- Jump to the type of the word under your cursor.
-            --  Useful when you're not sure what type a variable is and you want to see
-            --  the definition of its *type*, not where it was *defined*.
-            -- map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
 
             -- vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
             -- vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
@@ -116,10 +115,8 @@ local config = function()
             -- vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
             -- vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
             -- vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-            -- 
+            --
             -- vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
-            -- vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
-            -- 
             -- vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", opts)
             -- vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", opts)
             -- vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", opts)
@@ -139,14 +136,26 @@ return {
         },
     },
     {
+        "stevearc/conform.nvim",
+        event = { "BufWritePre" },
+        cmd = { "ConformInfo" },
+        opts = {
+            formatters_by_ft = { python = { "ruff_format", "ruff_fix" } },
+            format_on_save = {
+                timeout_ms = 500,
+                lsp_fallback = true,
+            },
+        },
+    },
+    {
         "neovim/nvim-lspconfig",
         dependencies = {
             -- automatically install LSPs and related tools
-            { "williamboman/mason.nvim", opts = mason_opts },
+            { "williamboman/mason.nvim",          opts = mason_opts },
             { "williamboman/mason-lspconfig.nvim" },
 
             -- useful status updates
-            { "j-hui/fidget.nvim", opts = {} },
+            { "j-hui/fidget.nvim",                opts = {} },
 
             -- completions stuff
             { "hrsh7th/nvim-cmp" },
@@ -164,4 +173,5 @@ return {
         lazy = false,
         config = config,
     },
+    { "nvim-treesitter/nvim-treesitter-context" },
 }

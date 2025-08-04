@@ -9,6 +9,7 @@ return {
             ["<C-j>"] = false,
             ["<C-k>"] = false,
             ["<C-l>"] = false,
+            ["g."] = { "actions.toggle_hidden", mode = "n" },
         }
     },
     keys = {

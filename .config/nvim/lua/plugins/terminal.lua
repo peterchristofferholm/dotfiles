@@ -34,7 +34,6 @@ local float_opts = {
     height = function()
         return math.floor(vim.o.lines * 0.80)
     end,
-    winblend = 5,
 }
 
 return {

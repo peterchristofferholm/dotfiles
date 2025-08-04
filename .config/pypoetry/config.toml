@@ -1,2 +1,5 @@
 [virtualenvs]
 path = ".env"
+
+[repositories.baselifescience]
+url = "https://pkgs.dev.azure.com/baselifescience/_packaging/baselifescience/pypi/simple/"
