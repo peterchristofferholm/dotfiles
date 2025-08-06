@@ -11,3 +11,5 @@ set("n", "<C-j>", "<Cmd>wincmd j<CR>")
 set("n", "<C-k>", "<Cmd>wincmd k<CR>")
 set("n", "<C-l>", "<Cmd>wincmd l<CR>")
 
+-- esc in normal mode clears search results
+vim.keymap.set("n", "<Esc>", "<cmd>noh<CR>")
