@@ -17,23 +17,12 @@ vim.opt.signcolumn = "yes"
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.termguicolors = true
+vim.opt.listchars = {}
 
 vim.opt.grepprg = "rg --vimgrep"
 vim.opt.ignorecase = true
 vim.opt.inccommand = "split"
 vim.opt.smartcase = true
 
-vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "python", "lua", "pkl" },
-  callback = function()
-    vim.treesitter.start()
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = "*.pkl",
-  command = "set filetype=pkl",
-})
+vim.o.cursorline = true
