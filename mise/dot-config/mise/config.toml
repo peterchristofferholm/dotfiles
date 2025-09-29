@@ -3,6 +3,7 @@ idiomatic_version_file_enable_tools = []
 experimental = true
 
 [tools]
+eza = "latest"
 npm = "latest"
 python = "3.12"
 task = "latest"
