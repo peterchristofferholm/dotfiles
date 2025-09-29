@@ -1,3 +1,16 @@
+#!/bin/bash
+
+## MISE-EN-PLACE ##################################################################################
+curl https://mise.run | sh
+eval "$(~/.local/bin/mise activate bash)"
+
+## HOMEBREW #######################################################################################
+curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+
+## UTILS ##########################################################################################
+brew install stow
+
+
 ## DOCKER #########################################################################################
 sudo apt-get update
 sudo apt-get install ca-certificates curl
@@ -13,5 +26,6 @@ sudo apt-get update
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-## HOMEBREW #######################################################################################
-curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+## TMUX ###########################################################################################
+sudo apt-get install libevent-dev ncurses-dev build-essential bison pkg-config
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm

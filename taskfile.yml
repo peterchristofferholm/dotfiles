@@ -1,0 +1,17 @@
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task: stow-bash
+      - task: stow-config
+
+  stow-bash:
+    cmds:
+      - stow --dotfiles --adopt bash 
+
+  stow-config:
+    cmds:
+      - stow --dotfiles nvim
+      - stow --dotfiles tmux
+      - stow --dotfiles mise
