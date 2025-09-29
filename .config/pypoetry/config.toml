@@ -1,5 +1,6 @@
 [virtualenvs]
 path = ".env"
+use-poetry-python = false
 
 [repositories.baselifescience]
 url = "https://pkgs.dev.azure.com/baselifescience/_packaging/baselifescience/pypi/simple/"

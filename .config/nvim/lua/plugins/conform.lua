@@ -9,6 +9,7 @@ return {
         typst = { "typstyle" },
         lua = { "stylua" },
         markdown = { "mdformat" },
+        cpp = { "clang-format" },
       },
       format_on_save = {
         timeout_ms = 500,

@@ -8,6 +8,7 @@ return {
         "ruff",
         "marksman",
         "bashls",
+        "clangd",
       })
     end,
   },
