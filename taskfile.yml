@@ -15,3 +15,4 @@ tasks:
       - stow --dotfiles nvim
       - stow --dotfiles tmux
       - stow --dotfiles mise
+      - stow --dotfiles stylua
