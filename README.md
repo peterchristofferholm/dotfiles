@@ -1,6 +1,6 @@
 # Dotfiles
 
-## TODO
-
-[ ] Automate `GNU Stow`
-[ ] Setup bootstrap functionality
+```bash
+git clone https://github.com/peterchristofferholm/dotfiles.git ~/dotfiles
+bash ~/dotfiles/bootstrap.sh
+```
