@@ -25,7 +25,6 @@ tasks:
     cmds:
       - sudo apt-get install libevent-dev ncurses-dev build-essential bison pkg-config
       - mise install tmux
-      - git clone https://github.com/tmux-plugins/tpm tmux/dot-config/tmux/plugins/tpm
     status:
       - command -v tmux
       - test -d tmux/dot-config/tmux/plugins/tpm
@@ -57,3 +56,10 @@ tasks:
       - stow --dotfiles tmux
       - stow --dotfiles mise
       - stow --dotfiles stylua
+      - task: install-tpm
+
+  install-tpm:
+    deps: [install-tmux]
+    cmds:
+      - git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+      - bash ~/.config/tmux/plugins/tpm/bin/install_plugins
