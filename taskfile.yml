@@ -2,15 +2,56 @@ version: '3'
 
 tasks:
   default:
+    alias: bootstrap
     cmds:
+      - task: install-docker
+      - task: install-utils
       - task: stow-bash
       - task: stow-config
+
+  install-homebrew:
+    cmds:
+      - curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+    status:
+      - command -v brew
+
+  install-docker:
+    cmds:
+      - bash scripts/install-docker.sh
+    status:
+      - command -v docker
+
+  install-tmux:
+    cmds:
+      - sudo apt-get install libevent-dev ncurses-dev build-essential bison pkg-config
+      - mise install tmux
+      - git clone https://github.com/tmux-plugins/tpm tmux/dot-config/tmux/plugins/tpm
+    status:
+      - command -v tmux
+      - test -d tmux/dot-config/tmux/plugins/tpm
+
+  install-stow:
+    deps: [install-homebrew]
+    cmds:
+      - brew install stow
+    status:
+      - command -v stow
+
+  install-utils:
+    deps: [install-homebrew]
+    cmds:
+      - brew install lazygit
+      - brew install lazydocker
+    status:
+      - command -v lazygit
+      - command -v lazydocker
 
   stow-bash:
     cmds:
       - stow --dotfiles --adopt bash 
 
   stow-config:
+    deps: [install-stow, install-tmux]
     cmds:
       - stow --dotfiles nvim
       - stow --dotfiles tmux
