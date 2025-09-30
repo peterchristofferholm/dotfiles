@@ -4,7 +4,9 @@ experimental = true
 
 [tools]
 eza = "latest"
+neovim = "latest"
 npm = "latest"
 python = "3.12"
 task = "latest"
 uv = "latest"
+zoxide = "latest"
