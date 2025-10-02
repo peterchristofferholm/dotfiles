@@ -103,3 +103,5 @@ fi
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(~/.local/bin/mise activate bash)"
 eval "$(zoxide init bash)"
+
+export UV_NATIVE_TLS=true

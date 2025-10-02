@@ -4,9 +4,12 @@ experimental = true
 
 [tools]
 eza = "latest"
+fzf = "latest"
 neovim = "latest"
+node = "24.8.0"
 npm = "latest"
 python = "3.12"
 task = "latest"
-uv = "latest"
+tree-sitter = "latest"
+uv = "0.8.22"
 zoxide = "latest"

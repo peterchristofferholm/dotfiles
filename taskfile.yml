@@ -27,7 +27,6 @@ tasks:
       - mise install tmux
     status:
       - command -v tmux
-      - test -d tmux/dot-config/tmux/plugins/tpm
 
   install-stow:
     deps: [install-homebrew]
@@ -56,6 +55,7 @@ tasks:
       - stow --dotfiles tmux
       - stow --dotfiles mise
       - stow --dotfiles stylua
+      - stow tools
       - task: install-tpm
 
   install-tpm:
@@ -63,3 +63,5 @@ tasks:
     cmds:
       - git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
       - bash ~/.config/tmux/plugins/tpm/bin/install_plugins
+    status:
+      - test -d tmux/dot-config/tmux/plugins/tpm
