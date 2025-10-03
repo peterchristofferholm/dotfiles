@@ -40,6 +40,7 @@ tasks:
     cmds:
       - brew install lazygit
       - brew install lazydocker
+      - brew install unzip
     status:
       - command -v lazygit
       - command -v lazydocker

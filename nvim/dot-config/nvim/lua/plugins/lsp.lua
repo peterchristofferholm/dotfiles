@@ -5,6 +5,7 @@ return {
       vim.lsp.enable({
         "lua_ls",
         "pyright",
+        "basedpyright",
         "ruff",
         "marksman",
         "bashls",
