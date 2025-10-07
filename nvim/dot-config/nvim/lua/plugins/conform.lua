@@ -10,6 +10,7 @@ return {
         lua = { "stylua" },
         markdown = { "mdformat" },
         cpp = { "clang-format" },
+        toml = { "taplo" },
       },
       format_on_save = {
         timeout_ms = 500,

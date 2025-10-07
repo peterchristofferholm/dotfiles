@@ -104,4 +104,5 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(~/.local/bin/mise activate bash)"
 eval "$(zoxide init bash)"
 
+export BROWSER="$HOME/.local/bin/chrome.exe"
 export UV_NATIVE_TLS=true
