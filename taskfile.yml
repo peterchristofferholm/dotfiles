@@ -42,6 +42,7 @@ tasks:
       - ./scripts/brew-install.sh lazygit
       - ./scripts/brew-install.sh lazydocker
       - ./scripts/brew-install.sh unzip
+      - ./scripts/brew-install.sh tree
     status:
       - command -v lazygit
       - command -v lazydocker

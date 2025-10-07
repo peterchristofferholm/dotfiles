@@ -3,7 +3,6 @@ idiomatic_version_file_enable_tools = []
 experimental = true
 
 [tools]
-azure = "2.77.0"
 eza = "latest"
 fzf = "latest"
 neovim = "latest"
