@@ -31,32 +31,33 @@ tasks:
   install-stow:
     deps: [install-homebrew]
     cmds:
-      - brew install stow
+      - ./scripts/brew-install.sh stow
+    env:
     status:
       - command -v stow
 
   install-utils:
     deps: [install-homebrew]
     cmds:
-      - brew install lazygit
-      - brew install lazydocker
-      - brew install unzip
+      - ./scripts/brew-install.sh lazygit
+      - ./scripts/brew-install.sh lazydocker
+      - ./scripts/brew-install.sh unzip
     status:
       - command -v lazygit
       - command -v lazydocker
 
   stow-bash:
     cmds:
-      - stow --dotfiles --adopt bash 
+      - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles --adopt bash 
 
   stow-config:
     deps: [install-stow, install-tmux]
     cmds:
-      - stow --dotfiles nvim
-      - stow --dotfiles tmux
-      - stow --dotfiles mise
-      - stow --dotfiles stylua
-      - stow tools
+      - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles nvim
+      - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles tmux
+      - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles mise
+      - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles stylua
+      - /home/linuxbrew/.linuxbrew/bin/stow tools
       - task: install-tpm
 
   install-tpm:
