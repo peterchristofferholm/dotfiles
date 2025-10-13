@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+VERSION="0.0.1"
+
+while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+    -h | --help)
+        echo "Usage: tms [OPTIONS] [PATH]"
+        echo "  -h, --help      Display this help message"
+        exit 0
+        ;;
+    -v | --version)
+        echo "tms version $VERSION"
+        exit 0
+        ;;
+    *)
+        user_selected="$1"
+        ;;
+    esac
+    shift
+done
+
+is_tmux_running() {
+    tmux_running=$(pgrep tmux)
+
+    if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+        return 1
+    fi
+
+    return 0
+}
+
+if [[ ! -z $user_selected ]]; then
+    selected="$user_selected"
+else
+    selected=$(find ~/ ~/work -mindepth 1 -maxdepth 1 -type d | fzf)
+fi
+
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+selected_name=$(basename "$selected" | tr . _)
+
+if ! is_tmux_running; then
+    tmux new-session -s "$selected_name" -c "$selected"
+    exit 0
+fi
+
+if ! tmux has-session -t="$selected_name" 2>/dev/null; then
+    tmux new-session -ds "$selected_name" -c "$selected"
+fi
+
+tmux switch-client -t "$selected_name"
