@@ -11,6 +11,7 @@ return {
         markdown = { "mdformat" },
         cpp = { "clang-format" },
         toml = { "taplo" },
+        sh = { "shellcheck", "shfmt" },
       },
       format_on_save = {
         timeout_ms = 500,

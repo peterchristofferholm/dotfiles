@@ -21,13 +21,6 @@ tasks:
     status:
       - command -v docker
 
-  install-tmux:
-    cmds:
-      - sudo apt-get install libevent-dev ncurses-dev build-essential bison pkg-config
-      - mise install tmux
-    status:
-      - command -v tmux
-
   install-stow:
     deps: [install-homebrew]
     cmds:
@@ -40,6 +33,7 @@ tasks:
     deps: [install-homebrew]
     cmds:
       - ./scripts/brew-install.sh lazygit
+      - ./scripts/brew-install.sh tmux
       - ./scripts/brew-install.sh lazydocker
       - ./scripts/brew-install.sh unzip
       - ./scripts/brew-install.sh tree
@@ -52,17 +46,17 @@ tasks:
       - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles --adopt bash 
 
   stow-config:
-    deps: [install-stow, install-tmux]
+    deps: [install-stow]
     cmds:
       - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles nvim
       - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles tmux
       - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles mise
       - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles stylua
-      - /home/linuxbrew/.linuxbrew/bin/stow tools
+      - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles tools
       - task: install-tpm
 
   install-tpm:
-    deps: [install-tmux]
+    deps: [install-utils]
     cmds:
       - git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
       - bash ~/.config/tmux/plugins/tpm/bin/install_plugins
