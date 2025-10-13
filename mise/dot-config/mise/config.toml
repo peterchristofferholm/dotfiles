@@ -2,13 +2,20 @@
 idiomatic_version_file_enable_tools = []
 experimental = true
 
+[settings.python]
+compile = false
+
 [tools]
+aws-cli = "latest"
+azure = "2.77.0"
 eza = "latest"
 fzf = "latest"
+github-cli = "latest"
 neovim = "latest"
 node = "24.8.0"
 npm = "latest"
 python = "3.12"
+ripgrep = "latest"
 task = "latest"
 tree-sitter = "latest"
 uv = "0.8.22"
