@@ -1,0 +1,17 @@
+gui:
+  language: 'en'
+  nerdFontsVersion: '3'
+
+git:
+  mainBranches:
+    - master
+    - main
+  skipHookPrefix: WIP
+
+keybinding:
+  universal:
+    scrollUpMain-alt1: <disabled>
+    scrollDownMain-alt1: <disabled>
+  commits:
+    moveDownCommit: J
+    moveUpCommit: K

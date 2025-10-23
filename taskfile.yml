@@ -53,6 +53,7 @@ tasks:
       - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles mise
       - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles stylua
       - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles tools
+      - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles configs
       - task: install-tpm
 
   install-tpm:
