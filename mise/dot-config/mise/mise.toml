@@ -1,4 +1,4 @@
 [tools]
 azure = "latest"
-node = "latest"
+node = "25"
 python = "3.12"

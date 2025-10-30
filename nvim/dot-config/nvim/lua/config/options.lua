@@ -6,6 +6,18 @@ vim.opt.smartindent = true
 vim.opt.colorcolumn = "100"
 vim.opt.relativenumber = true
 
+-- use lsp foldexpr()
+vim.opt.fillchars = "eob: ,fold: ,foldopen:,foldsep: ,foldclose:"
+vim.opt.foldenable = true
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+
+-- enable loading of .nvim.lua files
+vim.o.exrc = true
+vim.o.secure = true
+
 vim.opt.cursorline = true
 vim.opt.fillchars = { vert = "│" }
 vim.opt.number = true
