@@ -6,6 +6,8 @@ vim.opt.smartindent = true
 vim.opt.colorcolumn = "100"
 vim.opt.relativenumber = true
 
+vim.o.winborder = "rounded"
+
 -- use lsp foldexpr()
 vim.opt.fillchars = "eob: ,fold: ,foldopen:,foldsep: ,foldclose:"
 vim.opt.foldenable = true

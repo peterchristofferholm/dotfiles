@@ -8,6 +8,7 @@ local configure = function()
     "query",
     "python",
     "pkl",
+    "jinja",
   })
 end
 
