@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+echo "Select mode:"
+echo "1) RStudio Server (default)"
+echo "2) R REPL"
+read -p "Enter choice [1-2]: " choice
+
+case $choice in
+    2)
+        docker run --rm --network host -ti \
+            rocker/verse R
+        ;;
+    *)
+        docker run --rm --network host -ti -e DISABLE_AUTH=true \
+            -p 127.0.0.1:8787:8787 rocker/verse
+        ;;
+esac
