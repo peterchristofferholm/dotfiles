@@ -40,14 +40,8 @@ vim.opt.smartcase = true
 vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "python", "lua", "pkl" },
-  callback = function()
-    vim.treesitter.start()
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = "*.pkl",
-  command = "set filetype=pkl",
+vim.filetype.add({
+  extension = {
+    mdc = "markdown",
+  },
 })

@@ -1,4 +1,3 @@
 return {
-	{ "tpope/vim-surround" },
-	{ "nvim-treesitter/nvim-treesitter-context" },
+  { "tpope/vim-surround" },
 }

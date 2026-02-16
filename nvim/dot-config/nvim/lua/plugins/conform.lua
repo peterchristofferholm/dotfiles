@@ -8,7 +8,7 @@ return {
         python = { "ruff_format", "ruff_fix" },
         typst = { "typstyle" },
         lua = { "stylua" },
-        markdown = { "mdformat" },
+        -- markdown = { "mdformat" },
         cpp = { "clang-format" },
         toml = { "taplo" },
         sh = { "shellcheck", "shfmt" },

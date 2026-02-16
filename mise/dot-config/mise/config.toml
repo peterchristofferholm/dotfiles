@@ -1,9 +1,9 @@
-[settings]
-idiomatic_version_file_enable_tools = []
-experimental = true
-
 [settings.python]
 compile = false
+
+[settings]
+env_cache = true
+env_cache_ttl = "1d"
 
 [tools]
 aws-cli = "latest"

@@ -17,6 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 -- load core configuration
 require("config.remaps")
 require("config.options")
+require("config.autocmds")
 
 -- setup lazy.nvim
 require("lazy").setup({
