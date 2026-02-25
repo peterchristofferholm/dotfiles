@@ -1,3 +1,2 @@
 [lint.isort]
 force-single-line = false
-relative-imports = "from"
