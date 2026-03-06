@@ -8,12 +8,19 @@ return {
           backend = "tmux",
           enabled = true,
         },
+        win = {
+          layout = "float",
+          float = {
+            width = 1,
+            height = 0.95,
+          },
+        },
       },
       nes = { enabled = false },
     },
     keys = {
       {
-        "<c-.>",
+        "<c-]>",
         function()
           require("sidekick.cli").toggle()
         end,
@@ -84,18 +91,18 @@ return {
       },
     },
   },
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    build = ":Copilot auth",
-    config = function()
-      require("copilot").setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      })
-    end,
-  },
-  {
-    "giuxtaposition/blink-cmp-copilot",
-  },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   build = ":Copilot auth",
+  --   config = function()
+  --     require("copilot").setup({
+  --       suggestion = { enabled = false },
+  --       panel = { enabled = false },
+  --     })
+  --   end,
+  -- },
+  -- {
+  --   "giuxtaposition/blink-cmp-copilot",
+  -- },
 }
