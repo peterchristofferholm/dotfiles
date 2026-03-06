@@ -28,7 +28,7 @@ return {
         mode = { "n", "t", "i", "x" },
       },
       {
-        "<leader>aa",
+        "<leader>ac",
         function()
           require("sidekick.cli").toggle()
         end,
@@ -39,8 +39,6 @@ return {
         function()
           require("sidekick.cli").select()
         end,
-        -- Or to select only installed tools:
-        -- require("sidekick.cli").select({ filter = { installed = true } })
         desc = "Select CLI",
       },
       {
@@ -81,13 +79,19 @@ return {
         mode = { "n", "x" },
         desc = "Sidekick Select Prompt",
       },
-      -- Example of a keybinding to open cursor directly
       {
-        "<leader>ac",
+        "<leader>ax",
+        function()
+          require("sidekick.cli").send({ msg = "/clear" })
+        end,
+        desc = "Send /clear to CLI",
+      },
+      {
+        "<leader>aa",
         function()
           require("sidekick.cli").toggle({ name = "cursor", focus = true })
         end,
-        desc = "Sidekick Toggle Claude",
+        desc = "Sidekick Toggle Cursor",
       },
     },
   },
