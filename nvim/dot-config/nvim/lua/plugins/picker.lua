@@ -1,3 +1,5 @@
+vim.g.diff_base = vim.g.diff_base or "master"
+
 return {
   {
     "folke/snacks.nvim",
@@ -128,6 +130,32 @@ return {
           Snacks.picker.git_diff()
         end,
         desc = "Git Diff (Hunks)",
+      },
+      {
+        "<leader>gD",
+        function()
+          Snacks.picker.git_branches({
+            title = "Diff against branch",
+            confirm = function(picker, item)
+              picker:close()
+              if item then
+                vim.g.diff_base = item.branch
+                require("gitsigns").change_base(vim.g.diff_base, true)
+                Snacks.picker.git_diff({ base = vim.g.diff_base })
+              end
+            end,
+          })
+        end,
+        desc = "Git Diff vs Branch",
+      },
+      {
+        "<leader>gR",
+        function()
+          vim.g.diff_base = "master"
+          require("gitsigns").change_base(nil, true)
+          vim.notify("Gitsigns reset to index", vim.log.levels.INFO)
+        end,
+        desc = "Reset Gitsigns Base",
       },
       {
         "<leader>gf",
