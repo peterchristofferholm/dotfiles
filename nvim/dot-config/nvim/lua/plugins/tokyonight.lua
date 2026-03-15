@@ -1,8 +1,16 @@
 local M = { "folke/tokyonight.nvim" }
 
-M.opts = { style = "night" }
+M.opts = {
+  style = "night",
+  transparent = true,
+  styles = {
+    floats = "transparent",
+    sidebars = "transparent",
+  },
+}
 
-function M.config()
+function M.config(_, opts)
+  require("tokyonight").setup(opts)
   vim.cmd.colorscheme("tokyonight")
 end
 
