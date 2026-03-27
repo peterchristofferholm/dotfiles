@@ -1,44 +1,63 @@
 local M = {}
 
--- Default configuration
 local config = {
   target_pane = "0.1",
 }
 
--- Escape special characters for tmux
-local function escape_text(text)
-  local escaped_chars = { "\\", ";", '"', "$", "'" }
-  for _, char in ipairs(escaped_chars) do
-    text = text:gsub("%" .. char, "\\" .. char)
+local function tmux(args, opts)
+  return vim.system(args, opts):wait()
+end
+
+local function dedent(lines)
+  local min = math.huge
+  for _, line in ipairs(lines) do
+    if line:match("%S") then
+      min = math.min(min, #line:match("^(%s*)"))
+    end
   end
-  return text
+  if min == 0 or min == math.huge then
+    return lines
+  end
+  for i, line in ipairs(lines) do
+    lines[i] = line:sub(min + 1)
+  end
+  return lines
 end
 
--- Send text to configured pane with Enter
-function M.send(text)
-  local escaped_text = escape_text(text)
-  local cmd = string.format("tmux send-keys -t '%s' '%s' C-m", config.target_pane, escaped_text)
-  os.execute(cmd)
+local function send(lines)
+  local text = table.concat(lines, "\n"):gsub("%s+$", "")
+  if text == "" then
+    return
+  end
+  local suffix = text:find("\n") and "\n\n" or "\n"
+  tmux({ "tmux", "load-buffer", "-" }, { stdin = text .. suffix })
+  tmux({ "tmux", "paste-buffer", "-d", "-t", config.target_pane })
 end
 
--- Send highlighted text using getregion
-function M.send_highlighted_text()
-  local region = vim.fn.getregion(vim.fn.getpos("'<"), vim.fn.getpos("'>"), { type = "v" })
-  print(region)
-  local text = table.concat(region, "\n")
-  M.send(text)
+function M.send_visual()
+  local region = vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."), { type = vim.fn.mode() })
+  send(dedent(region))
 end
 
--- Send current line
-function M.send_current_line()
-  local line = vim.api.nvim_get_current_line()
-  M.send(line)
+function M.send_line()
+  send({ vim.trim(vim.api.nvim_get_current_line()) })
 end
 
--- Setup function
+function M.send_block()
+  local node = vim.treesitter.get_node()
+  if not node then
+    vim.notify("No treesitter node under cursor", vim.log.levels.WARN)
+    return
+  end
+  while node:parent() and node:parent():type() ~= "module" do
+    node = node:parent()
+  end
+  local sr, sc, er, ec = node:range()
+  send(vim.api.nvim_buf_get_text(0, sr, sc, er, ec, {}))
+end
+
 function M.setup(opts)
-  opts = opts or {}
-  config.target_pane = opts.target_pane or config.target_pane
+  config = vim.tbl_extend("force", config, opts or {})
 end
 
 return M
