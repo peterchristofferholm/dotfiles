@@ -14,6 +14,16 @@ return {
         ["<C-k>"] = false,
         ["<C-l>"] = false,
         ["g."] = { "actions.toggle_hidden", mode = "n" },
+
+        -- Snacks terminal in the directory Oil is showing (see snacks.nvim: Snacks.terminal)
+        ["<leader>to"] = {
+          function()
+            local dir = require("oil").get_current_dir()
+            Snacks.terminal(nil, { cwd = dir or vim.fn.getcwd() })
+          end,
+          mode = "n",
+          desc = "Snacks terminal (Oil directory)",
+        },
       },
     },
     keys = {

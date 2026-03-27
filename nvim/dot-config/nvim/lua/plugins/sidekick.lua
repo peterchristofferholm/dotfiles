@@ -89,9 +89,9 @@ return {
       {
         "<leader>aa",
         function()
-          require("sidekick.cli").toggle({ name = "cursor", focus = true })
+          require("sidekick.cli").toggle({ name = "claude", focus = true })
         end,
-        desc = "Sidekick Toggle Cursor",
+        desc = "Sidekick Toggle Claude",
       },
     },
   },

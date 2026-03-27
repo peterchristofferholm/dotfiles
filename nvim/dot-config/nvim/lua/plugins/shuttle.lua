@@ -8,19 +8,10 @@ return {
       local shuttle = require("shuttle")
       shuttle.setup(opts)
 
-      -- Set up keymappings
-      vim.keymap.set(
-        "v",
-        "<leader>r",
-        shuttle.send_highlighted_text,
-        { desc = "Shuttle selection to pane" }
-      )
-      vim.keymap.set(
-        "n",
-        "<leader>r",
-        shuttle.send_current_line,
-        { desc = "Shuttle current line to pane" }
-      )
+      vim.keymap.set("v", "<leader>r", shuttle.send_visual, { desc = "Shuttle selection to pane" })
+
+      vim.keymap.set("n", "<leader>r", shuttle.send_line, { desc = "Shuttle current line to pane" })
+      vim.keymap.set("n", "<leader>rb", shuttle.send_block, { desc = "Shuttle treesitter block to pane" })
     end,
   },
 }
