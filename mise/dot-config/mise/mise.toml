@@ -1,8 +1,10 @@
 [tools]
 azure = "latest"
+mc = "latest"
 node = "25"
 python = "3.12"
 rust = "latest"
 
 [settings]
 experimental = true
+pin = true
