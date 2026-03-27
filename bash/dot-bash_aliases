@@ -1,4 +1,24 @@
+halp() {
+  grep -B1 --no-group-separator "^alias " ~/.bash_aliases \
+    | paste - - \
+    | sed "s/^# *\(.*\)\talias \([^=]*\).*/\2\t\1/" \
+    | column -t -s $'\t'
+}
+
+# load dotenv
 alias load_dotenv='set -a && source .env && set +a'
+
+# List files
 alias l='eza -l --git --git-ignore --group-directories-first'
+
+# list all files
 alias ll='eza -l --git -a --group-directories-first'
+
+# cd to git repo root
 alias cdd='cd $(git rev-parse --show-toplevel)'
+
+# fzf -> cd
+alias fzd='cd $(find . -type d -print | fzf)'
+
+# fzf -> nvim
+alias fze='nvim $(fzf)'
