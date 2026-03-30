@@ -9,10 +9,13 @@ halp() {
 alias load_dotenv='set -a && source .env && set +a'
 
 # List files
-alias l='eza -l --git --git-ignore --group-directories-first'
+alias l='eza -l --no-permissions --git --git-ignore --group-directories-first'
 
 # list all files
-alias ll='eza -l --git -a --group-directories-first'
+alias ll='eza -l --git -a --no-permissions --group-directories-first'
+
+# list all files (with permissions)
+alias lll='eza -l --git -a --group-directories-first'
 
 # cd to git repo root
 alias cdd='cd $(git rev-parse --show-toplevel)'
@@ -22,3 +25,6 @@ alias fzd='cd $(find . -type d -print | fzf)'
 
 # fzf -> nvim
 alias fze='nvim $(fzf)'
+
+# reload waybar
+alias waybar-reload='pkill waybar && hyprctl dispatch exec waybar'
