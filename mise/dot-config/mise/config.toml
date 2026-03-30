@@ -1,24 +1,34 @@
-[settings.python]
-compile = false
-
 [settings]
 env_cache = true
 env_cache_ttl = "1d"
+experimental = true
+pin = true
+
+[settings.python]
+compile = false
+uv_venv_auto = "source"
 
 [tools]
-aws-cli = "latest"
-eza = "latest"
-fzf = "latest"
-github-cli = "latest"
+# core
+eza = "0.23.4"
+fzf = "0.70.0"
 jq = "1.8.1"
 lazygit = "0.60.0"
-neovim = "latest"
+neovim = "0.11.6"
+ripgrep = "15.1.0"
+task = "3.49.1"
+tree-sitter = "0.26.6"
+
+# typescript
 node = "24.8.0"
-npm = "latest"
-python = "3.12"
-ripgrep = "latest"
-stylua = "latest"
-task = "latest"
-tree-sitter = "latest"
+npm = "11.11.1"
+
+# utils
+github-cli = "2.88.1"
+
+# python
 uv = "0.8.22"
-zoxide = "latest"
+
+# other
+rust = "1.94.0"
+stylua = "2.4.0"
