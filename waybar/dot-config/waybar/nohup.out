@@ -1,0 +1,27 @@
+[2026-03-29 20:57:21.994] [info] Using configuration file /home/pch/.config/waybar/config.jsonc
+[2026-03-29 20:57:21.996] [info] Unable to receive desktop appearance: GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable
+[2026-03-29 20:57:21.997] [info] Using CSS file /home/pch/.config/waybar/style.css
+[2026-03-29 20:57:22.006] [info] Hyprland IPC starting
+[2026-03-29 20:57:22.007] [info] Loading persistent workspaces from Hyprland workspace rules
+Discharging
+[2026-03-29 20:57:22.145] [warning] Requested height: 20 is less than the minimum height: 48 required by the modules
+[2026-03-29 20:57:22.145] [info] Bar configured (width: 1592, height: 48) for output: eDP-1
+[2026-03-29 20:57:23.485] [info] Quitting.
+[2026-03-29 20:57:23.493] [info] Hyprland IPC stopping...
+[2026-03-29 20:57:29.339] [info] Using configuration file /home/pch/.config/waybar/config.jsonc
+[2026-03-29 20:57:29.341] [info] Unable to receive desktop appearance: GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable
+[2026-03-29 20:57:29.341] [info] Using CSS file /home/pch/.config/waybar/style.css
+[2026-03-29 20:57:29.350] [info] Hyprland IPC starting
+[2026-03-29 20:57:29.351] [info] Loading persistent workspaces from Hyprland workspace rules
+Discharging
+[2026-03-29 20:57:29.490] [warning] Requested height: 20 is less than the minimum height: 48 required by the modules
+[2026-03-29 20:57:29.490] [info] Bar configured (width: 1592, height: 48) for output: eDP-1
+[2026-03-29 21:04:22.820] [info] Using configuration file /home/pch/.config/waybar/config.jsonc
+[2026-03-29 21:04:22.821] [info] Unable to receive desktop appearance: GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable
+[2026-03-29 21:04:22.821] [info] Using CSS file /home/pch/.config/waybar/style.css
+[2026-03-29 21:04:22.830] [info] Hyprland IPC starting
+[2026-03-29 21:04:22.831] [info] Loading persistent workspaces from Hyprland workspace rules
+Discharging
+[2026-03-29 21:04:22.967] [warning] Requested height: 20 is less than the minimum height: 50 required by the modules
+[2026-03-29 21:04:22.967] [info] Bar configured (width: 1592, height: 50) for output: eDP-1
+Gdk-Message: 21:37:20.769: Error reading events from display: Broken pipe
