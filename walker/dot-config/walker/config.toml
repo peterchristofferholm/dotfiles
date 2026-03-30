@@ -1,0 +1,11 @@
+[keybinds]
+next = ["Down", "ctrl j"]
+previous = ["Up", "ctrl k"]
+
+[providers]
+default = [
+  "desktopapplications",
+  "calc",
+  "menus",
+  "websearch",
+]

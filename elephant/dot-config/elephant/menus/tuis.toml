@@ -1,0 +1,27 @@
+name = "terminal-tools"
+name_pretty = "TUIs"
+icon = "utilities-terminal"
+terminal = true
+action = "%VALUE%"
+
+[[entries]]
+text = "btop"
+value = "btop"
+
+[[entries]]
+text = "impala"
+keywords = ["network", "wifi", "ethernet", "connection"]
+subtext = "Manage network connections"
+icon = "network-wired"
+value = "impala"
+
+[[entries]]
+text = "htop"
+keywords = ["process", "monitor", "cpu", "memory"]
+icon = "utilities-system-monitor"
+value = "htop"
+
+[[entries]]
+text = "systemctl-tui"
+keywords = ["system", "daemons"]
+value = "systemctl-tui"
