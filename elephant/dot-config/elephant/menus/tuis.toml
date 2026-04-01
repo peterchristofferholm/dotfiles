@@ -11,9 +11,16 @@ value = "btop"
 [[entries]]
 text = "impala"
 keywords = ["network", "wifi", "ethernet", "connection"]
-subtext = "Manage network connections"
+subtext = "manage network connections"
 icon = "network-wired"
 value = "impala"
+
+[[entries]]
+text = "bluetui"
+keywords = ["bluetooth", "audio", "connection"]
+subtext = "manage bluetooth connections"
+icon = "audio-headphones"
+value = "bluetui"
 
 [[entries]]
 text = "htop"
