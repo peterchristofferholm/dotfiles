@@ -1,0 +1,3 @@
+#!/bin/sh
+# Usage: confirm "Prompt?" "command to run"
+echo -e "Yes\nNo" | walker --dmenu --placeholder "$1" | grep -q "Yes" && eval "$2"

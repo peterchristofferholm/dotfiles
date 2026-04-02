@@ -5,6 +5,7 @@ previous = ["Up", "ctrl k"]
 [providers]
 default = [
   "desktopapplications",
+  "bitwarden",
   "calc",
   "menus",
   "websearch",

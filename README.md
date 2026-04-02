@@ -9,7 +9,7 @@ bash ~/dotfiles/bootstrap.sh
 
 ### Import Zscaler certificates
 
-```
+```text
 # Get Zscaler root CA
 #
 # Get certificate thumbprint
@@ -26,6 +26,6 @@ wsl --user root -e bash -c "cd /etc/ssl/certs/;cp /root/zscaler.crt .;chmod 644 
 wsl --user root -e bash -c "update-ca-certificates -v -f;"
 ```
 
-```
+```text
 sudo cp /root/zscaler.crt /usr/local/share/ca-certificates/zscaler.crt
 ```
