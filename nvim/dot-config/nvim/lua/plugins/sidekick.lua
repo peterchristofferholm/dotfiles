@@ -1,3 +1,39 @@
+local function pane_id_of(sess)
+  while sess do
+    if sess.tmux_pane_id then
+      return sess.tmux_pane_id
+    end
+    sess = sess.parent
+  end
+end
+
+local function focus_sidekick_pane(session_id)
+  local Session = require("sidekick.cli.session")
+  for id, sess in pairs(Session.attached()) do
+    if not session_id or id == session_id then
+      local pane = pane_id_of(sess)
+      if pane then
+        vim.fn.system({ "tmux", "select-pane", "-t", pane })
+        return true
+      end
+    end
+  end
+  return false
+end
+
+local function send(opts)
+  if not focus_sidekick_pane() then
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "SidekickCliAttach",
+      once = true,
+      callback = function(ev)
+        focus_sidekick_pane(ev.data and ev.data.id)
+      end,
+    })
+  end
+  require("sidekick.cli").send(opts)
+end
+
 return {
   {
     "folke/sidekick.nvim",
@@ -7,12 +43,21 @@ return {
         mux = {
           backend = "tmux",
           enabled = true,
+          create = "split",
+          split = {
+            vertical = true,
+            size = 0.4,
+          },
         },
         win = {
           layout = "float",
           float = {
             width = 1,
             height = 0.95,
+          },
+          split = {
+            width = 0.382,
+            height = 0.4,
           },
         },
       },
@@ -51,7 +96,7 @@ return {
       {
         "<leader>at",
         function()
-          require("sidekick.cli").send({ msg = "{this}" })
+          send({ msg = "{this}" })
         end,
         mode = { "x", "n" },
         desc = "Send This",
@@ -59,14 +104,14 @@ return {
       {
         "<leader>af",
         function()
-          require("sidekick.cli").send({ msg = "{file}" })
+          send({ msg = "{file}" })
         end,
         desc = "Send File",
       },
       {
         "<leader>av",
         function()
-          require("sidekick.cli").send({ msg = "{selection}" })
+          send({ msg = "{selection}" })
         end,
         mode = { "x" },
         desc = "Send Visual Selection",
@@ -82,7 +127,7 @@ return {
       {
         "<leader>ax",
         function()
-          require("sidekick.cli").send({ msg = "/clear" })
+          send({ msg = "/clear" })
         end,
         desc = "Send /clear to CLI",
       },
@@ -95,18 +140,4 @@ return {
       },
     },
   },
-  -- {
-  --   "zbirenbaum/copilot.lua",
-  --   cmd = "Copilot",
-  --   build = ":Copilot auth",
-  --   config = function()
-  --     require("copilot").setup({
-  --       suggestion = { enabled = false },
-  --       panel = { enabled = false },
-  --     })
-  --   end,
-  -- },
-  -- {
-  --   "giuxtaposition/blink-cmp-copilot",
-  -- },
 }

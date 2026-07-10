@@ -1,0 +1,203 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+VERSION="0.2.0"
+SLOTS=(one two three four five six seven eight nine ten)
+
+case "${1:-}" in
+-h | --help)
+    cat <<'EOF'
+Usage: tma
+
+Interactive worktree manager (fzf)
+  enter    Switch to selected worktree
+  ctrl-n   Create a new worktree slot (detached at default branch)
+  ctrl-d   Detach HEAD in selected worktree (frees its branch)
+  esc      Quit
+
+If <repo>/.tma/post-create is executable, it runs after ctrl-n with
+  $1 = new worktree path, $2 = main repo root
+EOF
+    exit 0
+    ;;
+-v | --version)
+    echo "tma version $VERSION"
+    exit 0
+    ;;
+esac
+
+# --- helpers ---
+
+project_root() {
+    # Always resolve to the main worktree — git rev-parse --show-toplevel
+    # returns the current worktree when called from inside a linked one.
+    git worktree list --porcelain 2>/dev/null | awk '/^worktree / { print $2; exit }'
+}
+
+default_branch() {
+    local ref
+    ref=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null) || return 1
+    echo "${ref#refs/remotes/origin/}"
+}
+
+# Emit "slot<TAB>branch<TAB>path" for each worktree under <root>/worktrees/
+list_worktrees() {
+    local prefix="$(project_root)/worktrees/"
+    git worktree list --porcelain | awk -v prefix="$prefix" '
+        function emit() {
+            if (path != "" && index(path, prefix) == 1) {
+                slot = substr(path, length(prefix) + 1)
+                print slot "\t" branch "\t" path
+            }
+            path = ""
+            branch = ""
+        }
+        /^worktree /            { emit(); path   = $0; sub(/^worktree /, "", path) }
+        /^branch refs\/heads\// { branch = $0;         sub(/^branch refs\/heads\//, "", branch) }
+        /^detached$/            { branch = "(detached)" }
+        END                     { emit() }
+    '
+}
+
+next_slot() {
+    local taken
+    taken=$(list_worktrees | cut -f1)
+    for slot in "${SLOTS[@]}"; do
+        if ! echo "$taken" | grep -qx "$slot"; then
+            echo "$slot"
+            return 0
+        fi
+    done
+    return 1
+}
+
+# Look up a worktree path by slot from a tab-separated worktree list.
+worktree_for_slot() {
+    local slot="$1" worktrees="$2"
+    echo "$worktrees" | awk -F'\t' -v slot="$slot" '$1 == slot { print $3 }'
+}
+
+run_post_create_hook() {
+    local worktree="$1"
+    local root
+    root=$(project_root)
+    local hook="${root}/.tma/post-create"
+
+    if [[ -x "$hook" ]]; then
+        echo "tma: running $hook"
+        if ! "$hook" "$worktree" "$root"; then
+            echo "tma: post-create hook exited non-zero; continuing" >&2
+        fi
+    fi
+}
+
+switch_to_worktree() {
+    local slot="$1"
+    local worktree="$2"
+    local window_name="worktree-${slot}"
+
+    # If the target window exists, jump to it and close the picker window.
+    # Otherwise, repurpose the current window so `tma` doesn't accumulate one
+    # extra window per invocation.
+    if tmux list-windows -F '#{window_name}' | grep -qx "$window_name"; then
+        tmux select-window -t "$window_name"
+        tmux kill-window -t "$TMUX_PANE" 2>/dev/null || true
+    else
+        tmux rename-window "$window_name"
+        tmux respawn-window -k -c "$worktree" "${SHELL:-/bin/bash}"
+    fi
+}
+
+new_worktree() {
+    local default
+    if ! default=$(default_branch); then
+        echo "tma: could not detect default branch (origin/HEAD)" >&2
+        return 1
+    fi
+
+    local slot
+    if ! slot=$(next_slot); then
+        echo "tma: no free slots (max ${#SLOTS[@]})" >&2
+        return 1
+    fi
+
+    local worktree
+    worktree="$(project_root)/worktrees/${slot}"
+
+    git worktree add --detach "$worktree" "$default"
+    run_post_create_hook "$worktree"
+    switch_to_worktree "$slot" "$worktree"
+}
+
+detach_worktree() {
+    local worktree="$1"
+
+    git -C "$worktree" switch --detach 2>/dev/null || true
+}
+
+# --- main ---
+
+if ! project_root >/dev/null; then
+    echo "tma: not a git repository" >&2
+    exit 1
+fi
+
+if [[ -z "${TMUX:-}" ]]; then
+    echo "tma: not in a tmux session" >&2
+    exit 1
+fi
+
+if ! command -v fzf >/dev/null 2>&1; then
+    echo "tma: fzf not found in PATH" >&2
+    exit 1
+fi
+
+while true; do
+    worktrees=$(list_worktrees)
+
+    if [[ -z "$worktrees" ]]; then
+        items="(no worktrees)"
+    else
+        items=$(echo "$worktrees" | awk -F'\t' '{ printf "%-10s %s\n", $1, $2 }')
+    fi
+
+    set +e
+    result=$(echo "$items" | fzf \
+        --prompt="worktrees> " \
+        --header="enter=select  ctrl-n=new  ctrl-d=detach" \
+        --expect=ctrl-n,ctrl-d)
+    fzf_status=$?
+    set -e
+
+    # 0 = selection, 1 = no match, 130 = ESC/Ctrl-C
+    if [[ $fzf_status -eq 130 ]]; then
+        exit 0
+    elif [[ $fzf_status -ne 0 && $fzf_status -ne 1 ]]; then
+        echo "tma: fzf exited with status $fzf_status" >&2
+        exit "$fzf_status"
+    fi
+
+    key=$(echo "$result" | head -1)
+    selection=$(echo "$result" | tail -1)
+    slot=$(echo "$selection" | awk '{ print $1 }')
+
+    case "$key" in
+    ctrl-n)
+        new_worktree || true
+        exit 0
+        ;;
+    ctrl-d)
+        if [[ -n "$slot" && "$selection" != "(no worktrees)" ]]; then
+            detach_worktree "$(worktree_for_slot "$slot" "$worktrees")"
+        fi
+        ;;
+    *)
+        if [[ -z "$selection" || "$selection" == "(no worktrees)" ]]; then
+            exit 0
+        fi
+        switch_to_worktree "$slot" "$(worktree_for_slot "$slot" "$worktrees")"
+        exit 0
+        ;;
+    esac
+done

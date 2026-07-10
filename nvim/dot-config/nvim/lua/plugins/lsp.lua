@@ -7,6 +7,8 @@ return {
         "basedpyright",
         "ruff",
         "marksman",
+        "denols",
+        "pyrefly",
         "bashls",
         "clangd",
       })

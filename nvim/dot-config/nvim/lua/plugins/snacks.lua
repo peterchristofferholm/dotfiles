@@ -21,6 +21,13 @@ return {
         desc = "Lazygit",
       },
       {
+        "<leader>gB",
+        function()
+          Snacks.git.blame_line()
+        end,
+        desc = "Show git log for current line",
+      },
+      {
         "<leader>.",
         function()
           Snacks.scratch()

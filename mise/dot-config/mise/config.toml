@@ -21,3 +21,9 @@ task = "latest"
 tree-sitter = "latest"
 uv = "0.8.22"
 zoxide = "latest"
+
+[env]
+AWS_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt"
+REQUESTS_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt"
+SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt"
+NODE_EXTRA_CA_CERTS = "/usr/local/share/ca-certificates/zscaler.crt"

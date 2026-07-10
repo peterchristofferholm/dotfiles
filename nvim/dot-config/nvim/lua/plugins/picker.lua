@@ -9,6 +9,11 @@ return {
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts or {}, {
         picker = {
+          sources = {
+            smart = {
+              filter = { cwd = true, current = false },
+            },
+          },
           actions = require("trouble.sources.snacks").actions,
           win = {
             input = {
