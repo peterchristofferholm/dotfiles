@@ -7,11 +7,14 @@ read -p "Enter choice [1-2]: " choice
 
 case $choice in
     2)
-        docker run --rm --network host -ti \
+        docker run --rm -ti \
             rocker/verse R
         ;;
     *)
-        docker run --rm --network host -ti -e DISABLE_AUTH=true \
+        docker run --rm -ti \
+            -e USERID=1000 \
+            -e GROUPID=1000 \
+             -v "$(pwd)":/home/rstudio/work \
             -p 127.0.0.1:8787:8787 rocker/verse
         ;;
 esac
