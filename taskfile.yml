@@ -1,19 +1,26 @@
 version: '3'
 
 tasks:
-  default:
-    alias: bootstrap
-    cmds:
-      - task: install-docker
-      - task: install-utils
-      - task: stow-bash
-      - task: stow-config
 
-  install-homebrew:
+  default:
     cmds:
-      - curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+      - task --list-all
+
+  bootstrap:
+    alias: bootstrap
+    desc: Bootstrap default tools and setup dotfiles
+    cmds:
+      - task: install-stow
+      - task: install-docker
+      - task: install-tools
+      - task: deploy-bash-config
+      - task: deploy-tool-config
+
+  install-stow:
+    cmds:
+      - sudo apt install stow
     status:
-      - command -v brew
+      - command -v stow
 
   install-docker:
     cmds:
@@ -21,45 +28,26 @@ tasks:
     status:
       - command -v docker
 
-  install-stow:
-    deps: [install-homebrew]
-    cmds:
-      - ./scripts/brew-install.sh stow
-    env:
-    status:
-      - command -v stow
-
-  install-utils:
-    deps: [install-homebrew]
-    cmds:
-      - ./scripts/brew-install.sh lazygit
-      - ./scripts/brew-install.sh tmux
-      - ./scripts/brew-install.sh lazydocker
-      - ./scripts/brew-install.sh unzip
-      - ./scripts/brew-install.sh tree
-    status:
-      - command -v lazygit
-      - command -v lazydocker
-
-  stow-bash:
-    cmds:
-      - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles --adopt bash 
-
-  stow-config:
+  install-tools:
     deps: [install-stow]
     cmds:
-      - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles nvim
-      - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles tmux
-      - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles mise
-      - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles stylua
-      - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles tools
-      - /home/linuxbrew/.linuxbrew/bin/stow --dotfiles configs
-      - task: install-tpm
-
-  install-tpm:
-    deps: [install-utils]
-    cmds:
-      - git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
-      - bash ~/.config/tmux/plugins/tpm/bin/install_plugins
+      - sudo apt install unzip tree
+      - stow --dotfiles mise
+      - mise install
     status:
-      - test -d tmux/dot-config/tmux/plugins/tpm
+      - command -v unzip
+      - command -v lazygit
+      - command -v tree
+
+  deploy-bash-config:
+    cmds:
+      - stow --dotfiles --adopt bash 
+
+  deploy-tool-config:
+    deps: [install-stow]
+    cmds:
+      - stow --dotfiles tmux
+      - stow --dotfiles mise
+      - stow --dotfiles nvim
+      - stow --dotfiles utils
+      - stow --dotfiles tools
