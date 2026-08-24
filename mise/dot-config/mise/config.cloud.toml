@@ -1,4 +1,0 @@
-[tools]
-aws-cli = "latest"
-azure = "latest"
-mc = "latest"
