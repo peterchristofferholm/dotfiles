@@ -20,6 +20,8 @@ vim.opt.foldlevelstart = 99
 vim.o.exrc = true
 vim.o.secure = true
 
+vim.opt.completeopt = { "popup", "menu" }
+
 vim.opt.cursorline = true
 vim.opt.fillchars = { vert = "│" }
 vim.opt.number = true
@@ -41,7 +43,7 @@ vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 vim.filetype.add({
-	extension = {
-		mdc = "markdown",
-	},
+  extension = {
+    mdc = "markdown",
+  },
 })

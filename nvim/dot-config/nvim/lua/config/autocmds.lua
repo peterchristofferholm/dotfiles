@@ -1,5 +1,11 @@
--- local augroup = vim.api.nvim_create_augroup("phol_autocmds", { clear = true })
---
+local augroup = vim.api.nvim_create_augroup("peho", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  group = augroup,
+  pattern = "*.pkl",
+  command = "set filetype=pkl",
+})
+
 -- vim.api.nvim_create_autocmd("FileType", {
 --   group = augroup,
 --   pattern = { "markdown", "python", "lua", "pkl" },
@@ -19,11 +25,6 @@
 --   end,
 -- })
 --
--- vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
---   group = augroup,
---   pattern = "*.pkl",
---   command = "set filetype=pkl",
--- })
 --
 -- vim.api.nvim_create_autocmd("BufRead", {
 --   group = augroup,
@@ -37,27 +38,22 @@
 --   end,
 -- })
 --
--- vim.api.nvim_create_autocmd("User", {
---   pattern = "OilActionsPost",
---   callback = function(event)
---     if event.data.actions[1].type == "move" then
---       Snacks.rename.on_rename_file(event.data.actions[1].src_url, event.data.actions[1].dest_url)
---     end
---   end,
--- })
 --
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "oil",
---   callback = function(args)
---     vim.b[args.buf].snacks_main = true
---   end,
--- })
---
--- vim.api.nvim_create_autocmd("User", {
---   pattern = "OilActionsPost",
---   callback = function(event)
---     if event.data.actions.type == "move" then
---       Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
---     end
---   end,
--- })
+
+-- keep lsp and imports in sync when doing oil renames
+vim.api.nvim_create_autocmd("User", {
+  pattern = "OilActionsPost",
+  callback = function(event)
+    if event.data.actions[1].type == "move" then
+      Snacks.rename.on_rename_file(event.data.actions[1].src_url, event.data.actions[1].dest_url)
+    end
+  end,
+})
+
+-- make oil buffers behave like normal buffers for snacks
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "oil",
+  callback = function(args)
+    vim.b[args.buf].snacks_main = true
+  end,
+})

@@ -15,17 +15,19 @@ vim.keymap.set("n", "<Esc>", "<cmd>noh<CR>")
 -- double escape to exit terminal mode without delaying single escape
 local esc_timer
 set("t", "<Esc>", function()
-	esc_timer = esc_timer or (vim.uv or vim.loop).new_timer()
-	if esc_timer:is_active() then
-		esc_timer:stop()
-		vim.cmd("stopinsert")
-	else
-		esc_timer:start(200, 0, function() end)
-		return "<Esc>"
-	end
+  esc_timer = esc_timer or (vim.uv or vim.loop).new_timer()
+  if esc_timer:is_active() then
+    esc_timer:stop()
+    vim.cmd("stopinsert")
+  else
+    esc_timer:start(200, 0, function() end)
+    return "<Esc>"
+  end
 end, { expr = true, desc = "Double escape to normal mode" })
 
 -- yank buffer file path
 set("n", "<leader>yf", function()
-	vim.fn.setreg('"', vim.fn.expand("%:."))
+  vim.fn.setreg('"', vim.fn.expand("%:."))
 end, { desc = "Yank buffer path to unnamed register" })
+
+vim.keymap.set("i", "<C-space>", vim.lsp.completion.get, { desc = "Trigger autocomplete" })
