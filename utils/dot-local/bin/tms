@@ -33,7 +33,7 @@ is_tmux_running() {
 if [[ ! -z $user_selected ]]; then
     selected="$user_selected"
 else
-    selected=$(find ~/ ~/work -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$(find ~/ ~/work -mindepth 1 -maxdepth 1 -type d -not -name '.*' | fzf)
 fi
 
 if [[ -z $selected ]]; then
