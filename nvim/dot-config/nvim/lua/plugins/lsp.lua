@@ -10,7 +10,7 @@ return {
       "bashls",
       "clangd",
       "gopls",
-      "r-language-server",
+      "r_language_server",
     })
 
     vim.api.nvim_create_autocmd("LspAttach", {
