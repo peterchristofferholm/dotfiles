@@ -8,7 +8,7 @@ uv_venv_auto = "source"
 [tools]
 aws-cli = { version = "2.36.22", symlink_bins = "true" }
 azure = { version = "2.89.1", uvx_args = "--prerelease=allow" }
-claude = "2.1.227"
+claude = "2.1.280"
 eza = "0.23.5"
 fzf = "0.74.2"
 github-cli = "2.97.0"
@@ -29,6 +29,8 @@ tree-sitter = "0.26.12"
 ty = "0.0.70"
 typst = "0.15.1"
 uv = "0.12.3"
+typstyle = "0.15.1"
+tinymist = "0.15.2"
 
 [env]
 EDITOR = "nvim"
