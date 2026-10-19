@@ -2,13 +2,17 @@ local configure = function()
   require("nvim-treesitter").install({
     "bash",
     "diff",
+    "jinja",
     "lua",
+    "go",
     "markdown",
     "markdown_inline",
-    "query",
-    "python",
     "pkl",
-    "jinja",
+    "python",
+    "query",
+    "html",
+    "templ",
+    "typst",
   })
 end
 

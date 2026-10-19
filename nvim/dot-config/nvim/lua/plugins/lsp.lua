@@ -10,6 +10,9 @@ return {
       "bashls",
       "clangd",
       "gopls",
+      "tinymist",
+      "templ",
+      "tailwindcss",
       "r_language_server",
     })
 

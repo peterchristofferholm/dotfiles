@@ -1,18 +1,12 @@
 local augroup = vim.api.nvim_create_augroup("peho", { clear = true })
 
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+vim.api.nvim_create_autocmd("FileType", {
   group = augroup,
-  pattern = "*.pkl",
-  command = "set filetype=pkl",
+  pattern = { "markdown", "python", "lua", "pkl", "templ", "go" },
+  callback = function()
+    vim.treesitter.start()
+  end,
 })
-
--- vim.api.nvim_create_autocmd("FileType", {
---   group = augroup,
---   pattern = { "markdown", "python", "lua", "pkl" },
---   callback = function()
---     vim.treesitter.start()
---   end,
--- })
 --
 -- vim.api.nvim_create_autocmd("FileType", {
 --   group = augroup,

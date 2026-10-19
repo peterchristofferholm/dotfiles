@@ -45,5 +45,7 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.filetype.add({
   extension = {
     mdc = "markdown",
+    templ = "templ",
+    pkl = "pkl",
   },
 })
