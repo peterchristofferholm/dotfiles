@@ -1,5 +1,6 @@
 [settings]
 pin = true
+experimental = true
 
 [settings.python]
 compile = false
@@ -34,6 +35,11 @@ tinymist = "0.15.2"
 usage = "6.11.1"
 "go:github.com/boyter/scc/v4" = "4.1.0"
 "npm:@tailwindcss/language-server" = "0.16.0"
+"go:github.com/peterchristofferholm/sarifari/cmd/sarifari" = "0.0.1"
+trivy = "0.76.1"
+hunk = "0.24.1"
+bitwarden = "2026.10.1"
+"github:opentofu/tofu-ls" = "0.5.3"
 
 [env]
 EDITOR = "nvim"
