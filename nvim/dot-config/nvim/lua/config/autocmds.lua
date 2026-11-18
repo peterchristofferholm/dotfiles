@@ -1,10 +1,24 @@
 local augroup = vim.api.nvim_create_augroup("peho", { clear = true })
 
+-- .tfvars uses the opentofu-vars filetype so tofu_ls attaches; highlight it with the terraform parser
+vim.treesitter.language.register("terraform", { "terraform", "opentofu", "opentofu-vars" })
+
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup,
-  pattern = { "markdown", "python", "lua", "pkl", "templ", "go" },
+  pattern = { "markdown", "python", "lua", "pkl", "templ", "go", "terraform", "opentofu", "opentofu-vars" },
   callback = function()
     vim.treesitter.start()
+  end,
+})
+
+-- present the current markdown buffer as slides (split on `---`)
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup,
+  pattern = "markdown",
+  callback = function(args)
+    vim.keymap.set("n", "<localleader>s", function()
+      require("config.slides").start()
+    end, { buffer = args.buf, desc = "Present slides" })
   end,
 })
 --

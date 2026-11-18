@@ -5,6 +5,7 @@ local configure = function()
     "jinja",
     "lua",
     "go",
+    "hcl",
     "markdown",
     "markdown_inline",
     "pkl",
@@ -12,6 +13,7 @@ local configure = function()
     "query",
     "html",
     "templ",
+    "terraform",
     "typst",
   })
 end
@@ -23,5 +25,8 @@ return {
     lazy = false,
     build = ":TSUpdate",
     config = configure,
+    highlight = {
+      disable = { "tmux" },
+    },
   },
 }

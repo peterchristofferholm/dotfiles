@@ -47,5 +47,7 @@ vim.filetype.add({
     mdc = "markdown",
     templ = "templ",
     pkl = "pkl",
+    tofu = "terraform",
+    tfvars = "opentofu-vars",
   },
 })

@@ -13,6 +13,9 @@ return {
         toml = { "taplo" },
         sh = { "shellcheck", "shfmt" },
         go = { "goimports", "gofmt" },
+        terraform = { "tofu_fmt" },
+        opentofu = { "tofu_fmt" },
+        ["opentofu-vars"] = { "tofu_fmt" },
       },
       format_on_save = {
         timeout_ms = 500,

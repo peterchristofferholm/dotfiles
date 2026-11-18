@@ -1,4 +1,5 @@
 {
+  "ansi.nvim": { "branch": "main", "commit": "195b64c3da1c22c2e95648dcbdc6ed075d507064" },
   "conform.nvim": { "branch": "master", "commit": "619363c30309d29ffa631e67c8183f2a72caa373" },
   "flash.nvim": { "branch": "main", "commit": "b6346946d10d07998efee029fb0f7a593806d0cd" },
   "gitsigns.nvim": { "branch": "main", "commit": "31d6fb2d618bca1482b9f274751ead5f03461408" },

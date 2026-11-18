@@ -14,6 +14,7 @@ return {
       "templ",
       "tailwindcss",
       "r_language_server",
+      "tofu_ls",
     })
 
     vim.api.nvim_create_autocmd("LspAttach", {
