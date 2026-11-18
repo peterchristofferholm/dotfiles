@@ -15,7 +15,7 @@ set -g @sl_fg     "#c6d0f5"  # text
 
 # Session block, by client mode
 set -g @sl_session_fg        "#303446"
-set -g @sl_session_bg        "#ca9ee6"  # mauve    - normal
+set -g @sl_session_bg        "#babbf1"  # lavender - normal
 set -g @sl_session_prefix_bg "#ef9f76"  # peach    - prefix pressed
 set -g @sl_session_copy_bg   "#85c1dc"  # sapphire - copy mode
 
@@ -23,9 +23,9 @@ set -g @sl_session_copy_bg   "#85c1dc"  # sapphire - copy mode
 set -g @sl_win_bg            "#51576d"  # surface1
 set -g @sl_win_idx_bg        "#74788a"
 set -g @sl_win_fg            "#dddee2"
-set -g @sl_win_active_bg     "#f4b8e4"  # pink
-set -g @sl_win_active_idx_bg "#f6c6e9"
-set -g @sl_win_active_fg     "#6c5165"
+set -g @sl_win_active_bg     "#99d1db"  # sky
+set -g @sl_win_active_idx_bg "#b2dce4"
+set -g @sl_win_active_fg     "#3d5458"
 
 # Right-hand segments, by health
 set -g @sl_ok_bg        "#51576d"
@@ -42,7 +42,7 @@ set -g @sl_err_icon_bg  "#eb9b9c"
 set -g @sl_err_fg       "#66393a"
 
 # Panes and popups
-set -g @sl_border     "#ca9ee6"  # mauve
+set -g @sl_border     "#babbf1"  # lavender
 set -g @sl_border_dim "#51576d"  # surface1
 
 ## Application glyphs #########################################################
@@ -135,7 +135,7 @@ set -g window-status-bell-style bold
 set -g window-status-format "\
 #[range=window|#{window_id}]\
 #[fg=#{?#{m:*=1|#{window_index}=*,#{W:|#{window_index}=0,|#{window_index}=1}},#{@sl_win_active_bg},#{@sl_win_bg}},bg=#{@sl_win_idx_bg}]#{?window_start_flag,,}\
-#[fg=#{@sl_win_fg},bg=#{@sl_win_idx_bg}]#{?#{==:#{window_index},#{base-index}},, }#{window_index} \
+#[fg=#{@sl_win_fg},bg=#{@sl_win_idx_bg}] #{window_index} \
 #[fg=#{@sl_win_idx_bg},bg=#{@sl_win_bg}]\
 #[fg=#{@sl_win_fg},bg=#{@sl_win_bg}] #{E:@sl_win_icon} #W#{?window_activity_flag, 󱅫,} \
 #[norange]"
@@ -143,7 +143,7 @@ set -g window-status-format "\
 set -g window-status-current-format "\
 #[range=window|#{window_id}]\
 #[fg=#{@sl_win_bg},bg=#{@sl_win_active_idx_bg}]#{?window_start_flag,,}\
-#[fg=#{@sl_win_active_fg},bg=#{@sl_win_active_idx_bg},bold]#{?#{==:#{window_index},#{base-index}},, }#{window_index} \
+#[fg=#{@sl_win_active_fg},bg=#{@sl_win_active_idx_bg},bold] #{window_index} \
 #[fg=#{@sl_win_active_idx_bg},bg=#{@sl_win_active_bg}]\
 #[fg=#{@sl_win_active_fg},bg=#{@sl_win_active_bg},bold] #{E:@sl_win_icon} #W #{?pane_synchronized,✵,}\
 #[norange]"
@@ -214,4 +214,4 @@ set -g menu-border-style "fg=#{@sl_border}"
 
 # clock-mode-colour takes a plain colour, not a style, so it is not run through
 # format expansion - @sl_border has to be spelled out here.
-set -g clock-mode-colour "#ca9ee6"
+set -g clock-mode-colour "#babbf1"
